@@ -1,4 +1,18 @@
+using BollnasTrends.Core.Interfaces;
+using BollnasTrends.Core.Services;
+using BollnasTrends.Core.Strategies;
+using BollnasTrends.Infrastructure.Repositories;
+
+
 var builder = WebApplication.CreateBuilder(args);
+
+// 1. Koppla ihop Interfaces med Implementationer (Dependency Injection)
+// "Om någon vill ha IPopulationRepository -> Ge dem ScbRepository"
+builder.Services.AddScoped<IPopulationRepository, ScbRepository>();
+
+// 2. Registrera dina strategier och context (så vi kan använda dem senare)
+builder.Services.AddScoped<ITrendStrategy, SimpleGrowthStrategy>();
+builder.Services.AddScoped<TrendContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

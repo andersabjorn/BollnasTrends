@@ -10,5 +10,8 @@
       <ProjectReference Include="..\BollnasTrends.Core\BollnasTrends.Core.csproj" />
       <ProjectReference Include="..\BollnasTrends.Infrastructure\BollnasTrends.Infrastructure.csproj" />
     </ItemGroup>
-
+    <ItemGroup>
+        <ProjectReference Include="..\BollnasTrends.Core\BollnasTrends.Core.csproj" />
+        <ProjectReference Include="..\BollnasTrends.Infrastructure\BollnasTrends.Infrastructure.csproj" />
+    </ItemGroup>
 </Project>
