@@ -1,0 +1,31 @@
+@model BollnasTrends.Web.Models.TrendViewModel
+
+    @{
+    ViewData["Title"] = "Bollnäs Trender";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Befolkningstrend</h1>
+    
+    <div class="alert alert-info mt-4">
+    <h3>Analys: @Model.Analysis</h3>
+    </div>
+
+    <table class="table table-striped mt-4" style="max-width: 600px; margin: auto;">
+    <thead>
+    <tr>
+    <th>År</th>
+    <th>Befolkning</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var point in Model.Data)
+{
+    <tr>
+        <td>@point.Year</td>
+        <td>@point.Population</td>
+        </tr>
+}
+</tbody>
+    </table>
+    </div>
