@@ -32,7 +32,7 @@ public class TrendController : Controller
             Data = data,
             Analysis = analysisResult
         };
-
+// Review my code and prepare the next steps
         return View(model);
     }
 }
