@@ -13,6 +13,7 @@ builder.Services.AddScoped<IPopulationRepository, ScbRepository>();
 // 2. Registrera dina strategier och context (så vi kan använda dem senare)
 builder.Services.AddScoped<ITrendStrategy, SimpleGrowthStrategy>();
 builder.Services.AddScoped<TrendContext>();
+builder.Services.AddHttpClient();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
