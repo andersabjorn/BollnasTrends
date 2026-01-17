@@ -3,7 +3,7 @@ using BollnasTrends.Core.Services;
 using BollnasTrends.Core.Strategies;
 using BollnasTrends.Infrastructure.Repositories;
 
-
+// Added Azure and started to implementing 
 var builder = WebApplication.CreateBuilder(args);
 
 // 1. Koppla ihop Interfaces med Implementationer (Dependency Injection)
