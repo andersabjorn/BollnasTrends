@@ -10,4 +10,9 @@
       <ProjectReference Include="..\BollnasTrends.Core\BollnasTrends.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+    </ItemGroup>
+
 </Project>

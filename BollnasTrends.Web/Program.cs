@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using BollnasTrends.Infrastructure.Data;
 using BollnasTrends.Core.Interfaces;
 using BollnasTrends.Core.Services;
 using BollnasTrends.Core.Strategies;
@@ -6,6 +8,14 @@ using BollnasTrends.Infrastructure.Repositories;
 // Added Azure and started to implementing 
 // Added a startup and deployment
 var builder = WebApplication.CreateBuilder(args);
+
+// Hämta connection string från inställningarna
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
+                       ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+// Registrera Databasen (Det här var raden som saknades!)
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(connectionString));
 
 // 1. Koppla ihop Interfaces med Implementationer (Dependency Injection)
 // "Om någon vill ha IPopulationRepository -> Ge dem ScbRepository"
