@@ -2,6 +2,4 @@
 //Change this and add 
 Console.WriteLine("Hello, World!");
 
-// Did a  code review 
-
-// c
+//Did a code review and trying to figure out the latest Azure bug
