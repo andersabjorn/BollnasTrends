@@ -15,7 +15,15 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 // Registrera Databasen (Det här var raden som saknades!)
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString, sqlOptions =>
+    {
+        sqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5,  // Försök upp till 5 gånger
+            maxRetryDelay: TimeSpan.FromSeconds(30),  // Vänta max 30 sek mellan retries
+            errorNumbersToAdd: new[] { 40613 }  // Specifikt för ditt "not available"-fel
+        );
+    })
+);
 
 // 1. Koppla ihop Interfaces med Implementationer (Dependency Injection)
 // "Om någon vill ha IPopulationRepository -> Ge dem ScbRepository"
@@ -27,6 +35,7 @@ builder.Services.AddScoped<TrendContext>();
 builder.Services.AddHttpClient();
 
 // Add services to the container.
+// Tryng to locate the bugg in Azure
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
