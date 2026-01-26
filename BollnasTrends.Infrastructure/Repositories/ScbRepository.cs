@@ -68,6 +68,7 @@ public class ScbRepository : IPopulationRepository
          {
            result.Add(new PopulationPoint
            {
+             Region = row.Key[0],
              Year = year,
              Population = population
            });

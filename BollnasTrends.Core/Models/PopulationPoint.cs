@@ -2,7 +2,7 @@ namespace BollnasTrends.Core.Models;
 
 public class PopulationPoint
 {
-    //Add more
- public int  Year { get; set; }
- public int  Population { get; set; }
+    public string Region { get; set; } = string.Empty;
+    public int Year { get; set; }
+    public int Population { get; set; }
 }
