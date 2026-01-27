@@ -12,3 +12,4 @@ Console.WriteLine("Hello, World!");
 
 // Found the bug but not API numbers
 // Walking through the code again
+//Read about Azure and made small changes
