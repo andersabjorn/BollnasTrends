@@ -14,3 +14,6 @@ Console.WriteLine("Hello, World!");
 // Walking through the code again
 //Read about Azure and made small changes
 //Made a code review
+
+//Learning strategy pattern
+
