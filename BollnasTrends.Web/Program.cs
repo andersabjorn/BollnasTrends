@@ -1,3 +1,4 @@
+using Polly;
 using Microsoft.EntityFrameworkCore;
 using BollnasTrends.Infrastructure.Data;
 using BollnasTrends.Core.Interfaces;
@@ -27,12 +28,16 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // 1. Koppla ihop Interfaces med Implementationer (Dependency Injection)
 // "Om någon vill ha IPopulationRepository -> Ge dem ScbRepository"
-builder.Services.AddScoped<IPopulationRepository, ScbRepository>();
+builder.Services.AddHttpClient<IPopulationRepository, ScbRepository>()
+    .AddTransientHttpErrorPolicy(policy => 
+        policy.WaitAndRetryAsync(3, attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt))));
+
+
 
 // 2. Registrera dina strategier och context (så vi kan använda dem senare)
 builder.Services.AddScoped<ITrendStrategy, SimpleGrowthStrategy>();
 builder.Services.AddScoped<TrendContext>();
-builder.Services.AddHttpClient();
+
 
 // Add services to the container.
 // Tryng to locate the bugg in Azure
