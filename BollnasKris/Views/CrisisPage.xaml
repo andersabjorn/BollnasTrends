@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:BollnasKris.ViewModels"
+             x:Class="BollnasKris.Views.CrisisPage"
+             Title="BollnäsKris"
+             BackgroundColor="#1a1a2e">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="16">
+
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0" Spacing="8">
+            <Label Text="⚠️ KRISINFO"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center"/>
+
+            <Label Text="{Binding StatusText}"
+                   FontSize="18"
+                   TextColor="#aaa"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- Kontroller -->
+        <HorizontalStackLayout Grid.Row="1"
+                                Spacing="12"
+                                HorizontalOptions="Center"
+                                Margin="0,16,0,16">
+
+            <Button Text="▶️ Starta"
+                    Command="{Binding ToggleListeningCommand}"
+                    BackgroundColor="#4CAF50"
+                    TextColor="White"
+                    CornerRadius="8"
+                    Padding="16,8"/>
+
+            <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                <Label Text="Auto-relay:"
+                       TextColor="White"
+                       VerticalOptions="Center"/>
+                <Switch IsToggled="{Binding AutoRelay}"
+                        OnColor="#4CAF50"/>
+            </HorizontalStackLayout>
+        </HorizontalStackLayout>
+
+        <!-- Meddelande-lista -->
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding Messages}"
+                        EmptyView="Inga meddelanden ännu...">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="#16213e"
+                           BorderColor="#e94560"
+                           CornerRadius="12"
+                           Padding="16"
+                           Margin="0,8">
+                        <VerticalStackLayout Spacing="8">
+
+                            <!-- Prioritets-indikator -->
+                            <Label Text="🔴 KRITISKT"
+                                   TextColor="#e94560"
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   IsVisible="{Binding Priority, Converter={StaticResource PriorityToVisibleConverter}}"/>
+
+                            <!-- Meddelande -->
+                            <Label Text="{Binding Content}"
+                                   TextColor="White"
+                                   FontSize="18"
+                                   LineBreakMode="WordWrap"/>
+
+                            <!-- Metadata -->
+                            <HorizontalStackLayout Spacing="16">
+                                <Label TextColor="#888" FontSize="12">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="📍 "/>
+                                            <Span Text="{Binding Location}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+                                <Label TextColor="#888" FontSize="12">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="🏛️ "/>
+                                            <Span Text="{Binding Source}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </HorizontalStackLayout>
+
+                            <Label TextColor="#666" FontSize="10">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Mottaget: "/>
+                                        <Span Text="{Binding ReceivedAt, StringFormat='{0:HH:mm:ss}'}"/>
+                                        <Span Text=" | Hopp: "/>
+                                        <Span Text="{Binding HopCount}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Footer / Debug -->
+        <HorizontalStackLayout Grid.Row="3"
+                                HorizontalOptions="Center"
+                                Spacing="12"
+                                Margin="0,8,0,0">
+            <Button Text="📤 Skicka test"
+                    Command="{Binding SendTestMessageCommand}"
+                    BackgroundColor="#333"
+                    TextColor="White"
+                    CornerRadius="8"
+                    FontSize="12"/>
+
+            <Button Text="🗑️ Rensa"
+                    Command="{Binding ClearMessagesCommand}"
+                    BackgroundColor="#333"
+                    TextColor="White"
+                    CornerRadius="8"
+                    FontSize="12"/>
+        </HorizontalStackLayout>
+
+    </Grid>
+</ContentPage>
